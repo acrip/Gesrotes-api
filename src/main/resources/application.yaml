@@ -1,0 +1,10 @@
+server:
+  servlet:
+    context-path: /api/
+  port: 8080
+
+spring:
+  datasource:
+    url: ${GESROTES_HOST}
+    username: ${GESROTES_USER}
+    password: ${GESROTES_PASSWORD}
