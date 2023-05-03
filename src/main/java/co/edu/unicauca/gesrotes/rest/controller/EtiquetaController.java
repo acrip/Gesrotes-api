@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-
 @RestController
 @RequestMapping(path = "v1/etiqueta", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EtiquetaController {
