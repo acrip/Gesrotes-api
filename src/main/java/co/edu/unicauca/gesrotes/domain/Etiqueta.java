@@ -38,7 +38,7 @@ public class Etiqueta {
 
     @ManyToOne
     @JoinColumn(name = "id_escenario")
-    private Escenario escenario;
+    private  Escenario escenario;
 
     @OneToMany(mappedBy = "etiqueta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference

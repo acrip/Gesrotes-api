@@ -12,7 +12,7 @@ import java.util.List;
 
 @Mapper
 @MapperConfig(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN)
-public interface EtiquetaMapper {
+public interface EtiquetaMapper  {
     EtiquetaDTO toEtiquetaDto(Etiqueta etiqueta);
 
     List<EtiquetaDTO> toEtiquetaDtos(List<Etiqueta> etiquetas);
