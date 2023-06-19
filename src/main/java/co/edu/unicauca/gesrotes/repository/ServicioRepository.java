@@ -9,7 +9,4 @@ import java.util.Optional;
 
 @Repository
 public interface ServicioRepository extends JpaRepository<Servicio, Long> {
-    Optional<Servicio> findByIdAndEnabled(Long enabled, boolean exists);
-
-    List<Servicio> findAllByEnabled(boolean exists);
 }

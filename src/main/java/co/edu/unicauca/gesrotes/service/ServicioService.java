@@ -1,6 +1,5 @@
 package co.edu.unicauca.gesrotes.service;
 
-import co.edu.unicauca.gesrotes.domain.Etiqueta;
 import co.edu.unicauca.gesrotes.domain.Servicio;
 import co.edu.unicauca.gesrotes.mapper.ServicioMapper;
 import co.edu.unicauca.gesrotes.repository.EtiquetaRepository;
@@ -24,7 +23,7 @@ public class ServicioService {
     private ServicioMapper servicioMapper;
 
     public List<ServicioDTO> listar() {
-        return servicioMapper.toServicioDtos(servicioRepository.findAllByEnabled(true));
+        return servicioMapper.toServicioDtos(servicioRepository.findAll());
     }
 
     public ServicioDTO crear(ServicioRequestDTO servicioRequest) {
@@ -33,30 +32,20 @@ public class ServicioService {
     }
 
     public ServicioDTO obtener(Long id) {
-        return servicioRepository.findByIdAndEnabled(id, true)
+        return servicioRepository.findById(id)
                 .map(servicioMapper::toServicioDto)
                 .orElseThrow();
     }
 
     public ServicioDTO actualizar(Long id, ServicioRequestDTO servicioRequest) {
-        Servicio servicio = servicioRepository.findByIdAndEnabled(id, true)
-                .orElseGet(() -> new Servicio(id, servicioRequest.name()));
+        Servicio servicio = servicioRepository.findById(id).orElseThrow();
         servicio.setName(servicioRequest.name());
 
-        if (servicio.getEtiqueta().getId() != servicioRequest.idEtiqueta()) {
-            Etiqueta etiqueta = etiquetaRepository.getReferenceById(servicioRequest.idEtiqueta());
-            servicio.setEtiqueta(etiqueta);
-        }
         servicioRepository.save(servicio);
         return servicioMapper.toServicioDto(servicio);
     }
 
     public void eliminar(Long id) {
-        //    servicioRepository.deleteById(id);
-        servicioRepository.findById(id)
-                .ifPresent(servicio -> {
-                    servicio.setEnabled(false);
-                    servicioRepository.save(servicio);
-                });
+            servicioRepository.deleteById(id);
     }
 }
