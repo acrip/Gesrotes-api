@@ -28,14 +28,7 @@ public class Servicio {
     @Column(length = 100)
     private String name;
 
-    private Boolean enabled = true;
-
     @ManyToOne
-    @JoinColumn(name = "id_etiqueta")
-    private Etiqueta etiqueta;
-
-    public Servicio(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    @JoinColumn(name = "id_escenario")
+    private Escenario escenario;
 }

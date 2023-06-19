@@ -24,7 +24,7 @@ public class EtiquetaService {
     private EtiquetaMapper etiquetaMapper;
 
     public List<EtiquetaDTO> listar() {
-        return etiquetaMapper.toEtiquetaDtos(etiquetaRepository.findAllByEnabled(true));
+        return etiquetaMapper.toEtiquetaDtos(etiquetaRepository.findAll());
     }
 
     public EtiquetaDTO crear(EtiquetaRequestDTO etiquetaRequest) {
@@ -33,14 +33,13 @@ public class EtiquetaService {
     }
 
     public EtiquetaDTO obtener(Long id) {
-        return etiquetaRepository.findByIdAndEnabled(id, true)
+        return etiquetaRepository.findById(id)
                 .map(etiquetaMapper::toEtiquetaDto)
                 .orElseThrow();
     }
 
     public EtiquetaDTO actualizar(Long id, EtiquetaRequestDTO etiquetaRequest) {
-        Etiqueta etiqueta = etiquetaRepository.findByIdAndEnabled(id, true)
-                .orElseGet(() -> new Etiqueta(id, etiquetaRequest.name()));
+        Etiqueta etiqueta = etiquetaRepository.findById(id).orElseThrow();
         etiqueta.setName(etiquetaRequest.name());
 
         if (etiqueta.getEscenario().getId() != etiquetaRequest.idEscenario()) {
@@ -52,11 +51,6 @@ public class EtiquetaService {
     }
 
     public void eliminar(Long id) {
-        //    etiquetaRepository.deleteById(id);
-        etiquetaRepository.findById(id)
-                .ifPresent(etiqueta -> {
-                    etiqueta.setEnabled(false);
-                    etiquetaRepository.save(etiqueta);
-                });
+        etiquetaRepository.deleteById(id);
     }
 }
