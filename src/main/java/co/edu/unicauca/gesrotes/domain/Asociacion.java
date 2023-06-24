@@ -28,4 +28,5 @@ public class Asociacion {
     @ManyToOne
     @JoinColumn(name = "id_servicio")
     private Servicio servicio;
+    //
 }
