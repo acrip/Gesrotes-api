@@ -17,6 +17,6 @@ public interface ServicioMapper {
 
     List<ServicioDTO> toServicioDtos(List<Servicio> servicios);
 
-    @Mapping(source = "idEtiqueta", target = "etiqueta.id")
+    @Mapping(source = "idEtiqueta", target = "id")
     Servicio toServicio(ServicioRequestDTO request);
 }
